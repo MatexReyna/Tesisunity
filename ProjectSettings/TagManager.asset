@@ -11,6 +11,8 @@ TagManager:
   - Valla
   - suelo
   - Suelo
+  - Pelota
+  - Bot
   layers:
   - Default
   - TransparentFX

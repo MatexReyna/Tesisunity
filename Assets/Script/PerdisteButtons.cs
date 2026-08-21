@@ -1,14 +1,14 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class WinMenu : MonoBehaviour
+public class PerdisteButtons : MonoBehaviour
 {
-    public void VolverAlMenu()
+    public void IrAlMenuPrincipal()
     {
         SceneManager.LoadScene("MenuPrincipal");
     }
 
-    public void SiguienteNivel()
+    public void IntentarDeNuevo()
     {
         SceneManager.LoadScene("Nivel2");
     }

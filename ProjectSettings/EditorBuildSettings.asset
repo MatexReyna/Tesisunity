@@ -20,5 +20,14 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Perdiste.unity
     guid: fab88303727d51c44ade2acd531d46f9
+  - enabled: 1
+    path: Assets/Scenes/Nivel2.unity
+    guid: 18088fc9fbef9f94daf9c02112ba89ea
+  - enabled: 1
+    path: Assets/Scenes/GanasteNv2.unity
+    guid: e6877855ae0e71042b300a0f18b2d4a7
+  - enabled: 1
+    path: Assets/Scenes/PerdisteNv2.unity
+    guid: a832a798b63444242be4818161744460
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
