@@ -4,7 +4,6 @@ public class IntroduccionNivel2 : MonoBehaviour
 {
     [Header("Sprites de la introducción")]
     public SpriteRenderer dialogo;
-
     public Sprite[] spritesDialogo;
 
     [Header("Objetos del nivel")]
@@ -23,7 +22,7 @@ public class IntroduccionNivel2 : MonoBehaviour
         // Mostrar el primer diálogo
         ActualizarDialogo();
 
-        Debug.Log("Introducción del Nivel 2 iniciada. Presiona F para continuar.");
+        Debug.Log("Introducción del Nivel 2 iniciada. Presiona la flecha ABAJO para continuar.");
     }
 
     void Update()
@@ -32,8 +31,8 @@ public class IntroduccionNivel2 : MonoBehaviour
         if (introduccionTerminada)
             return;
 
-        // Avanzar con F
-        if (Input.GetKeyDown(KeyCode.F))
+        // Avanzar con la flecha ABAJO
+        if (Input.GetKeyDown(KeyCode.DownArrow))
         {
             SiguienteDialogo();
         }
@@ -59,7 +58,7 @@ public class IntroduccionNivel2 : MonoBehaviour
             return;
         }
 
-        // Mostrar siguiente sprite
+        // Mostrar el siguiente sprite
         ActualizarDialogo();
     }
 
