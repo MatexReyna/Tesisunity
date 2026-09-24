@@ -499,8 +499,8 @@ Transform:
   m_GameObject: {fileID: 298275917}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -329.6276, y: 4222.25, z: 0}
-  m_LocalScale: {x: 20.109291, y: 6.9580564, z: 1}
+  m_LocalPosition: {x: -329.67, y: 4222.36, z: 0}
+  m_LocalScale: {x: 20.485334, y: 8.457913, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -1708,8 +1708,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BotIA
   pelota: {fileID: 1338015089}
   detectorSuelo: {fileID: 1383793000}
-  velocidad: 4
-  fuerzaSalto: 8.5
+  velocidad: 3.5
+  fuerzaSalto: 7
+  fuerzaHaciaPelota: 0.8
   limiteIzquierdo: -329.5
   limiteDerecho: -316.8
   posicionEspera: -324
@@ -1718,7 +1719,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   radioSuelo: 0.2
-  tiempoEntreSaltos: 0.4
+  tiempoEntreSaltos: 1
   audioSource: {fileID: 925953865}
   sonidoPasos: {fileID: 8300000, guid: ab1edc7a15b5d1c47867520adc3d3d68, type: 3}
 --- !u!61 &925953860
@@ -2176,8 +2177,8 @@ Transform:
   m_GameObject: {fileID: 1098443340}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -329.6879, y: 4213.8213, z: 0}
-  m_LocalScale: {x: 1.1989334, y: 1.0909909, z: 1}
+  m_LocalPosition: {x: -329.6879, y: 4213.846, z: 0}
+  m_LocalScale: {x: 1.1989334, y: 1.0965154, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -5007,7 +5008,7 @@ AudioSource:
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 150
+  Priority: 160
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500
@@ -5630,8 +5631,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44d5a86b2423a78478260d0313a95090, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Pelota
-  fuerzaHorizontal: 4
-  fuerzaVertical: 5
+  fuerzaHorizontal: 3.8
+  fuerzaVertical: 5.8
+  velocidadMaxima: 10
   audioSource: {fileID: 1338015092}
   sonidoGolpe: {fileID: 8300000, guid: 807b9cd9d9920fb48b2093c83e445436, type: 3}
   sonidoSilbato: {fileID: 8300000, guid: eafff277b78d81b40979367041add225, type: 3}

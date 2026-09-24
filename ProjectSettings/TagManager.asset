@@ -13,6 +13,8 @@ TagManager:
   - Suelo
   - Pelota
   - Bot
+  - Pelota3
+  - player
   layers:
   - Default
   - TransparentFX
@@ -20,10 +22,10 @@ TagManager:
   - Suelo
   - Water
   - UI
+  - fondo
+  - jugador
   - 
-  - 
-  - 
-  - 
+  - player
   - 
   - 
   - 

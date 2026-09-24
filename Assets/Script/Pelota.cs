@@ -2,9 +2,10 @@ using UnityEngine;
 
 public class Pelota : MonoBehaviour
 {
-    [Header("Fuerza del contacto")]
-    public float fuerzaHorizontal = 8f;
-    public float fuerzaVertical = 6f;
+    [Header("Física de la pelota")]
+    public float fuerzaHorizontal = 5.5f;
+    public float fuerzaVertical = 7f;
+    public float velocidadMaxima = 10f;
 
     [Header("Sonido del golpe")]
     public AudioSource audioSource;
@@ -15,12 +16,6 @@ public class Pelota : MonoBehaviour
 
     private Rigidbody2D rb;
     private GameManager gameManager;
-
-    // Contador de toques del equipo que tiene la pelota
-    private int cantidadToques = 0;
-
-    // Guarda quién hizo el último toque
-    private string ultimoEquipo = "";
 
     void Start()
     {
@@ -39,6 +34,15 @@ public class Pelota : MonoBehaviour
         }
     }
 
+    void FixedUpdate()
+    {
+        // Evita que la pelota alcance velocidades exageradas
+        if (rb.linearVelocity.magnitude > velocidadMaxima)
+        {
+            rb.linearVelocity = rb.linearVelocity.normalized * velocidadMaxima;
+        }
+    }
+
     void OnCollisionEnter2D(Collision2D collision)
     {
         // ==========================================
@@ -53,9 +57,6 @@ public class Pelota : MonoBehaviour
             }
 
             ReproducirSonidoGolpe();
-
-            ContarToque("Jugador");
-
             MoverPelota(collision);
         }
 
@@ -71,9 +72,6 @@ public class Pelota : MonoBehaviour
             }
 
             ReproducirSonidoGolpe();
-
-            ContarToque("Bot");
-
             MoverPelota(collision);
         }
 
@@ -83,40 +81,13 @@ public class Pelota : MonoBehaviour
 
         else if (collision.gameObject.CompareTag("red"))
         {
-            ResetearToques();
-
-            Debug.Log("🏐 La pelota tocó la red. Contador reiniciado.");
+            Debug.Log("🏐 La pelota tocó la red.");
         }
     }
 
-    void ContarToque(string equipo)
-    {
-        // Si cambia de equipo, empezar nuevamente desde 1
-        if (ultimoEquipo != "" && ultimoEquipo != equipo)
-        {
-            cantidadToques = 0;
-        }
-
-        cantidadToques++;
-
-        ultimoEquipo = equipo;
-
-        Debug.Log("🏐 " + equipo + " tiene " + cantidadToques + " toque(s).");
-
-        // Cuarto toque
-        if (cantidadToques >= 4)
-        {
-            ReproducirSilbato();
-
-            ResetearToques();
-        }
-    }
-
-    void ResetearToques()
-    {
-        cantidadToques = 0;
-        ultimoEquipo = "";
-    }
+    // ==========================================
+    // SONIDO DEL GOLPE
+    // ==========================================
 
     void ReproducirSonidoGolpe()
     {
@@ -126,29 +97,34 @@ public class Pelota : MonoBehaviour
         }
     }
 
-    void ReproducirSilbato()
-    {
-        if (audioSource != null && sonidoSilbato != null)
-        {
-            audioSource.PlayOneShot(sonidoSilbato);
-
-            Debug.Log("📢 ¡SILBATO! ¡4 TOQUES!");
-        }
-    }
+    // ==========================================
+    // MOVIMIENTO DE LA PELOTA
+    // ==========================================
 
     void MoverPelota(Collision2D collision)
     {
         float direccion;
 
         if (collision.transform.position.x < transform.position.x)
+        {
             direccion = 1f;
+        }
         else
+        {
             direccion = -1f;
+        }
 
-        rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
+        // Conservamos parte del movimiento actual
+        float velocidadVertical = rb.linearVelocity.y;
+
+        // Impulso controlado hacia el otro lado
+        rb.linearVelocity = new Vector2(
+            direccion * fuerzaHorizontal,
+            velocidadVertical * 0.35f
+        );
 
         rb.AddForce(
-            new Vector2(direccion * fuerzaHorizontal, fuerzaVertical),
+            new Vector2(0f, fuerzaVertical),
             ForceMode2D.Impulse
         );
     }

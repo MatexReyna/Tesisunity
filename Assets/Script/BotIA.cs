@@ -10,6 +10,9 @@ public class BotIA : MonoBehaviour
     public float velocidad = 4f;
     public float fuerzaSalto = 9f;
 
+    [Header("Fuerza hacia la pelota")]
+    public float fuerzaHaciaPelota = 1.5f;
+
     [Header("Límites")]
     public float limiteIzquierdo = -329.5f;
     public float limiteDerecho = -316.8f;
@@ -45,10 +48,8 @@ public class BotIA : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
 
-        // ANIMACIÓN
         animator = GetComponent<Animator>();
 
-        // SONIDO
         if (audioSource == null)
         {
             audioSource = GetComponent<AudioSource>();
@@ -74,6 +75,10 @@ public class BotIA : MonoBehaviour
 
         float destino;
 
+        // ==========================================
+        // DETERMINAR DESTINO
+        // ==========================================
+
         // Si la pelota está del lado del jugador,
         // el bot vuelve al centro de su cancha.
         if (pelota.position.x < -329.89f)
@@ -85,9 +90,13 @@ public class BotIA : MonoBehaviour
             destino = pelota.position.x;
         }
 
-        destino = Mathf.Clamp(destino, limiteIzquierdo, limiteDerecho);
+        destino = Mathf.Clamp(
+            destino,
+            limiteIzquierdo,
+            limiteDerecho);
 
-        float distancia = Mathf.Abs(destino - transform.position.x);
+        float distancia = Mathf.Abs(
+            destino - transform.position.x);
 
         // ==========================================
         // MOVIMIENTO
@@ -95,14 +104,23 @@ public class BotIA : MonoBehaviour
 
         if (distancia > zonaMuerta)
         {
-            float direccion = Mathf.Sign(destino - transform.position.x);
+            float direccion = Mathf.Sign(
+                destino - transform.position.x);
+
+            // Velocidad normal + ayuda hacia la pelota
+            float velocidadMovimiento = velocidad;
+
+            if (pelota.position.x >= -329.89f)
+            {
+                velocidadMovimiento += fuerzaHaciaPelota;
+            }
 
             rb.linearVelocity = new Vector2(
-                direccion * velocidad,
+                direccion * velocidadMovimiento,
                 rb.linearVelocity.y);
 
             // ==========================================
-            // SONIDO DE PASOS DE ADA
+            // SONIDO DE PASOS
             // ==========================================
 
             if (audioSource != null && sonidoPasos != null)
@@ -113,7 +131,8 @@ public class BotIA : MonoBehaviour
                     audioSource.loop = true;
                     audioSource.Play();
 
-                    Debug.Log("SONIDO DE PASOS DE ADA REPRODUCIÉNDOSE");
+                    Debug.Log(
+                        "SONIDO DE PASOS DE ADA REPRODUCIÉNDOSE");
                 }
             }
         }
@@ -128,7 +147,8 @@ public class BotIA : MonoBehaviour
             {
                 audioSource.Stop();
 
-                Debug.Log("SONIDO DE PASOS DE ADA DETENIDO");
+                Debug.Log(
+                    "SONIDO DE PASOS DE ADA DETENIDO");
             }
         }
 
@@ -139,13 +159,15 @@ public class BotIA : MonoBehaviour
         if (enSuelo &&
             Time.time >= siguienteSalto &&
             pelota.position.y > transform.position.y + 0.5f &&
-            Mathf.Abs(pelota.position.x - transform.position.x) < 1.2f)
+            Mathf.Abs(
+                pelota.position.x - transform.position.x) < 1.2f)
         {
             rb.linearVelocity = new Vector2(
                 rb.linearVelocity.x,
                 fuerzaSalto);
 
-            siguienteSalto = Time.time + tiempoEntreSaltos;
+            siguienteSalto =
+                Time.time + tiempoEntreSaltos;
         }
 
         // ==========================================
@@ -169,7 +191,6 @@ public class BotIA : MonoBehaviour
                 {
                     animator.SetBool("Correr", true);
                 }
-                // QUIETA
                 else
                 {
                     animator.SetBool("Correr", false);
@@ -183,6 +204,7 @@ public class BotIA : MonoBehaviour
         if (detectorSuelo != null)
         {
             Gizmos.color = Color.green;
+
             Gizmos.DrawWireSphere(
                 detectorSuelo.position,
                 radioSuelo);
