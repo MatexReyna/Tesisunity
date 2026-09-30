@@ -6,9 +6,9 @@ PhysicsMaterial2D:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: PelotaNv3_Material
+  m_Name: MaterialPelota3
   serializedVersion: 2
-  friction: 0.1
-  bounciness: 0.7
-  m_FrictionCombine: 3
+  friction: 0
+  bounciness: 0.3
+  m_FrictionCombine: 1
   m_BounceCombine: 4
